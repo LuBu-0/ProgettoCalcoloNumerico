@@ -16,20 +16,21 @@ function [cstar,Rzero,b]=cheb_tikonov(n,lambda,xsample,ysample)
 %       Rzero := [n+1 x n+1] fattorizzazione di Choleski di G;
 %       b := [n+1 x 1] termine noto del sistema lineare Gc=b.
 
-xsample=xsample(:);
-ysample=ysample(:);
+xsample = xsample(:);
+ysample = ysample(:);
+
 M = length(xsample);
 
-V=cheb_vand(n,xsample);
+V = cheb_vand(n,xsample);
 [xquad,w] = cheb_quad(n);
-Vquad=cheb_vand(n,xquad);
-L=[V/sqrt(M);diag(sqrt(lambda*w))*Vquad];
+Vquad = cheb_vand(n,xquad);
+L = [V/sqrt(M);diag(sqrt(lambda*w))*Vquad];
 [Q,R] = qr(L);
 R0 = R(1:n+1,:);
 
-b=(V'*ysample) / M;
+b = (V'*ysample)/M;
 
-cstar=SostituzioneIndietro(R0,SostituzioneAvanti(R0',b))';
-Rzero=R0'*R0;
+cstar = SostituzioneIndietro(R0,SostituzioneAvanti(R0',b));
+Rzero = R0'*R0;
 
 end

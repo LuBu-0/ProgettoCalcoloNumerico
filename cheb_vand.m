@@ -8,8 +8,8 @@ function V = cheb_vand(n, x)
 %   OUTPUT
 %       V := [length(x) x n+1] matrice di Vandermonde.
 
-x=x(:);
+x = x(:);
 
-V=cos(acos(x)*(0:n));
+V = cos(acos(x)*(0:n));
 
 end

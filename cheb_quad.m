@@ -13,15 +13,15 @@ function [xquad,w]=cheb_quad(n)
 %       w := [1 x n+1] vettore dei pesi
 %
 
-xquad=cos((0:n)./n*pi);
+xquad = cos((0:n)./n*pi)';
 Vquad = cheb_vand(n,xquad);
 
-m=[2;zeros(n,1)];
+m = [2;zeros(n,1)];
 for k = 2:2:n+1
     m(k) = 2/(1-k^2);
 end
 
 [L,U,P] = lu(Vquad');
-w=SostituzioneIndietro(U,SostituzioneAvanti(L,P*m))';
+w = SostituzioneIndietro(U,SostituzioneAvanti(L,P*m))';
 
 end 
