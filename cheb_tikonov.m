@@ -15,19 +15,21 @@ function [cstar,Rzero,b]=cheb_tikonov(n,lambda,xsample,ysample)
 %       cstar := [n+1 x 1] vettore minimizzatore della funzione convessa;
 %       Rzero := [n+1 x n+1] fattorizzazione di Choleski di G;
 %       b := [n+1 x 1] termine noto del sistema lineare Gc=b.
+
 xsample=xsample(:);
 ysample=ysample(:);
 M = length(xsample);
-%costruzione di R0
+
 V=cheb_vand(n,xsample);
 [xquad,w] = cheb_quad(n);
 Vquad=cheb_vand(n,xquad);
 L=[V/sqrt(M);diag(sqrt(lambda*w))*Vquad];
 [Q,R] = qr(L);
 R0 = R(1:n+1,:);
-%costruzione del termine noto b
+
 b=(V'*ysample) / M;
-%calcolo della soluzione cstar tramite algoritmi di sostituzione
+
 cstar=SostituzioneIndietro(R0,SostituzioneAvanti(R0',b))';
 Rzero=R0'*R0;
+
 end

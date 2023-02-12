@@ -15,13 +15,13 @@ function [xquad,w]=cheb_quad(n)
 
 xquad=cos((0:n)./n*pi);
 Vquad = cheb_vand(n,xquad);
-%calcolo di m
+
 m=[2;zeros(n,1)];
 for k = 2:2:n+1
     m(k) = 2/(1-k^2);
 end
-%calcolare w risolvendo (Vquad)'w=m con fattorizzazione LU con pivoting parziale e
-%algoritmi di sostituzione Avanti e indietro.
+
 [L,U,P] = lu(Vquad');
 w=SostituzioneIndietro(U,SostituzioneAvanti(L,P*m))';
+
 end 
