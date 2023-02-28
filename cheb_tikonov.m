@@ -6,8 +6,8 @@ function [cstar,Rzero,b]=cheb_tikonov(n,lambda,xsample,ysample)
 %risolvere poi tale sistema e fornire il valore cstar soluzione dello stesso.
 %   
 %   INPUT:
-%       n := [1 x 1] grado polinomiale;
-%       lambda := [1 x 1] parametro di regolarizzazione alla Tikonov;
+%       n := [1 x 1] intero positivo, rappresenta il grado polinomiale;
+%       lambda := [1 x 1] reale positivo, valore del parametro di regolarizzazione alla Tikonov;
 %       xsample := [M x 1] valori del data-set;
 %       ysample := [M x 1] ysample = f(xsample) + rumore.
 %
@@ -25,12 +25,12 @@ V = cheb_vand(n,xsample);
 [xquad,w] = cheb_quad(n);
 Vquad = cheb_vand(n,xquad);
 L = [V/sqrt(M);diag(sqrt(lambda*w))*Vquad];
-[Q,R] = qr(L);
+R = qr(L);
 R0 = R(1:n+1,:);
 
 b = (V'*ysample)/M;
 
-cstar = SostituzioneIndietro(R0,SostituzioneAvanti(R0',b));
 Rzero = R0'*R0;
+cstar = SostituzioneIndietro(R0,SostituzioneAvanti(R0',b));
 
 end

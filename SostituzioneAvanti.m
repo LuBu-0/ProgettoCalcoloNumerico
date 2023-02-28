@@ -1,4 +1,13 @@
 function x=SostituzioneAvanti(L,b)
+%SostituzioneAvanti risolve il sistema lineare Lx = b mediante l'algoritmo
+%di sostituzioine avanti
+%   
+%   INPUT:
+%       L := [n x n] matrice triangolare inferiore;
+%       b := [n x 1] termine noto del sistema.
+%
+%   OUTPUT
+%       x := [n x 1] soluzione del sistema.
 toll=10^-12;
 if norm(L-tril(L))>toll
     error('La matrice deve essere triangolare inferiore')

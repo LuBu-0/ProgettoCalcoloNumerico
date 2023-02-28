@@ -6,7 +6,7 @@ function [xquad,w]=cheb_quad(n)
 %sostituzione (sostituzioneAvanti, sostituzioneIndietro)
 %
 %   INPUT:
-%       n := [1 x 1] grado di esattezza polinomiale.
+%       n := [1 x 1] intero positivo, rappresenta il grado di esattezza polinomiale.
 %
 %   OUTPUT:
 %       xquad := [n+1 x 1] vettore dei nodi di quadratura

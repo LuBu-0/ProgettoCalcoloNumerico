@@ -5,14 +5,15 @@ clc
 load dataset_chebtikonov.mat
 
 n=12; M=length(xsample); lambda=1/M;
+
 cstar=cheb_tikonov(n,lambda,xsample,ysample);
-
 D=ChebDiff1D(n);
-f=@(x) cstar'*cheb_vand(n,x)';
-df=@(x) (D*cstar)'*cheb_vand(n,x)';
-d2f=@(x) (D*D*cstar)'*cheb_vand(n,x)';
 
-[zero,res,iterates,flag]=Newton(df,d2f,0,1e-15,100,'m');
+f=@(x) cheb_vand(n,x)*cstar;
+df=@(x) cheb_vand(n,x)*D*cstar;
+d2f=@(x) cheb_vand(n,x)*D*D*cstar;
+
+[zero,res,iterates,flag]=Newton(df,d2f,0.3,1e-15,100,'m');
 
 fprintf("Il punto di minimo è %.10f con valore %.10f, La derivata seconda in quel punto vale %.10f.\nEssendo la derivata sdeconda strettamente positiva possiamo affermare che si tratta di un punto di minimo.\n",zero,f(zero),d2f(zero));
 
